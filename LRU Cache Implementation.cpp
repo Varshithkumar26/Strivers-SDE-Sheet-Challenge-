@@ -1,76 +1,72 @@
 #include<bits/stdc++.h>
-class LRUCache
-{
+class LRUCache {
 
-class Node{
+class node{
     public:
-    Node* next;
-    Node* prev;
+    node* prev;
+    node* next;
     int key;
     int val;
-    Node(int _key,int _val)
+    node(int _key, int _val)
     {
-        key=_key;
-        val=_val;
+      key = _key;
+      val = _val;
     }
 };
 
-Node* start=new Node(-1,-1);
-Node* dummy=start;
-unordered_map<int,Node*> mp;
+unordered_map<int,node*> mp;
 int size;
+node* head=new node(-1,-1);
+node* tail=head;
 
 public:
-    LRUCache(int capacity)
-    {
-        // Write your code here
+    LRUCache(int capacity) {
         size=capacity;
     }
-
-    int get(int key)
-    {
-        // Write your code here
+    
+    int get(int key) {
+        
         if(mp.find(key)==mp.end())
           return -1;
-        
-        Node* n=mp[key];
-        if(n->next)
+        else
         {
-            n->next->prev=n->prev;
-            n->prev->next=n->next;
-            dummy->next=n;
-            n->prev=dummy;
-            n->next=NULL;
-            dummy=n;
+            node* n=mp[key];
+            if(n->next)
+            {
+                n->prev->next=n->next;
+                n->next->prev=n->prev;
+                tail->next=n;
+                n->prev=tail;
+                n->next=NULL;
+                tail=tail->next;
+            }
+            return mp[key]->val;
         }
-        
-        return n->val;
-    }
 
-    void put(int key, int value)
-    {
-        // Write your code here
+    }
+    
+    void put(int key, int value) {
+        
         if(mp.find(key)!=mp.end())
         {
             mp[key]->val=value;
             get(key);
         }
-          
-        
         else
         {
-            Node* node=new Node(key,value);
-            mp[key]=node;
-            dummy->next=node;
-            node->prev=dummy;
-            node->next=NULL;
-            dummy=dummy->next;
-            if(mp.size()==size+1)
+            node* temp=new node(key,value);
+            mp[key]=temp;
+            tail->next=temp;
+            temp->prev=tail;
+            temp->next=NULL;
+            tail=tail->next;
+            if(mp.size()==(size+1))
             {
-                mp.erase(start->next->key);
-                start->next=start->next->next;
-                start->next->prev=start;
+                mp.erase(head->next->key);
+                head->next=head->next->next;
+                head->next->prev=head;
             }
         }
+
     }
 };
