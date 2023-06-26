@@ -3,7 +3,7 @@ string reverseString(string &str){
 	// Write your code here.	
 	int n=str.length();
 	stack<string> st;
-	for(int i=0;i<n;i++)
+	for(int i=0;i<n;)
 	{
 		string s;
 		int j=i;
@@ -15,7 +15,7 @@ string reverseString(string &str){
 		st.push(s);
 		while(j<n && str[j]==' ')
 		  j++;
-		i=j-1;
+		i=j;
 	}
 
 	string ans;
