@@ -12,20 +12,36 @@
     };
 */
 
-void f(TreeNode *root,vector<int> &ans)
-{
-    if(!root)
-      return;
-    
-    f(root->left,ans);
-    ans.push_back(root->data);
-    f(root->right,ans);
-}
-
 vector<int> getInOrderTraversal(TreeNode *root)
 {
     // Write your code here.
     vector<int> ans;
-    f(root,ans);
+    while(root)
+    {
+        if(root->left==NULL)
+        {
+            ans.push_back(root->data);
+            root=root->right;
+        }
+        else
+        {
+            TreeNode *prev=root->left;
+            while(prev->right && prev->right!=root)
+              prev=prev->right;
+
+            if(prev->right==NULL)
+            {
+                prev->right=root;
+                root=root->left;
+            } 
+            else
+            {
+                prev->right=NULL;
+                ans.push_back(root->data);
+                root=root->right;
+            } 
+             
+        }
+    }
     return ans;
 }
