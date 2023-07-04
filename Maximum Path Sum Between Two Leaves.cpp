@@ -42,9 +42,9 @@ long long int findMaxSumPath(TreeNode<int> *root)
 {
     // Write your code here.
     int cnt=0;
-    long long int ans=-1;
+    long long int ans=0;
     f(root,ans,cnt);
-    if(cnt==1)
+    if(cnt<=1)
       return -1;
     return ans;
 }
