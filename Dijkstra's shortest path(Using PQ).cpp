@@ -14,17 +14,17 @@ vector<int> dijkstra(vector<vector<int>> &vec, int vertices, int edges, int sour
     pq.push({0,source});
     while(!pq.empty())
     {
-        int d=pq.top().first;
+        int distance=pq.top().first;
         int node=pq.top().second;
         pq.pop();
         for(auto it:adj[node])
         {
-            int vertex=it.first;
-            int distance=it.second;
-            if(dist[vertex]>d+distance)
+            int adjnode=it.first;
+            int edgeweight=it.second;
+            if(dist[adjnode]>distance+edgeweight)
             {
-                dist[vertex]=d+distance;
-                pq.push({distance+d,vertex});
+                dist[adjnode]=distance+edgeweight;
+                pq.push({edgeweight+distance,adjnode});
             }
         }
     }
