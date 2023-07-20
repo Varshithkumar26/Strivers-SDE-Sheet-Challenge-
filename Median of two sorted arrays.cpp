@@ -7,7 +7,7 @@ double median(vector<int>& a, vector<int>& b) {
 	if(m<n)
 	  return median(b,a);//always do BS on smaller array
 	
-	int low=0,high=(n+m+1)/2;
+	int low=0,high=n;
 	while(low<=high)
 	{
 		int cut1=(low+high)/2;//denotes the no of ele from first array
