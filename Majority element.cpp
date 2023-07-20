@@ -9,8 +9,11 @@ int findMajorityElement(int arr[], int n) {
 	for(int i=0;i<n;i++)
 	{	
 		if(cnt==0)
-		  ele=arr[i];
-		if(arr[i]==ele)
+		{
+			ele=arr[i];
+			cnt=1;
+		}
+		else if(arr[i]==ele)
 		  cnt++;
 		else
 		  cnt--;
